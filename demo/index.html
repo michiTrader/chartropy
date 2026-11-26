@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>ChartTropy · Banco de pruebas</title>
+  <link rel="stylesheet" href="./lab.css">
+  <script defer src="./bootstrap.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <strong>ChartTropy</strong>
+    <span>Banco de pruebas</span>
+  </header>
+  <main id="launch">
+    <section class="details launch">
+      <h1>Abrir ChartTropy</h1>
+      <p>Usa la versión autónoma para abrir el gráfico directamente desde un archivo.</p>
+      <a class="file-button" href="../dist/ChartTropy.html">Abrir la versión autónoma</a>
+    </section>
+  </main>
+  <main id="demo" hidden>
+    <div class="heading">
+      <div>
+        <p class="source" id="source">Grabación sintética</p>
+        <h1 id="instrument">EUR/USD · M1</h1>
+      </div>
+      <label class="file-button">Abrir grabación<input id="recording" type="file" accept=".json,application/json"></label>
+    </div>
+    <p id="error" class="error" role="alert" hidden></p>
+    <div class="toolbar">
+      <div class="modes" role="group" aria-label="Modo de reproducción">
+        <button type="button" data-mode="replay" aria-pressed="true">Replay</button>
+        <button type="button" data-mode="history" aria-pressed="false">Histórico</button>
+        <button type="button" data-mode="feed" aria-pressed="false">Vivo simulado</button>
+      </div>
+      <label class="navigation">Navegación
+        <select id="navigation"><option value="smooth">Suave</option><option value="bars">Por vela</option></select>
+      </label>
+    </div>
+    <div class="workspace">
+      <section class="plot" aria-label="Gráfico y controles">
+        <div class="plot-bar">
+          <span>Precio · UTC</span>
+          <div role="group" aria-label="Vista del gráfico" class="zoom">
+            <button type="button" id="zoom-out" aria-label="Alejar gráfico">−</button>
+            <button type="button" id="zoom-in" aria-label="Ampliar gráfico">+</button>
+            <button type="button" id="latest">Última vela</button>
+          </div>
+        </div>
+        <canvas id="chart" tabindex="0" aria-label="Gráfico de velas. Usa las flechas para mover la vista y más o menos para cambiar el zoom." aria-describedby="selected-time">Velas y eventos de la grabación.</canvas>
+        <div id="transport" class="transport">
+          <div class="step-buttons" role="group" aria-label="Controles del reloj">
+            <button type="button" id="previous" aria-label="Vela anterior">←</button>
+            <button type="button" id="play">Reproducir</button>
+            <button type="button" id="next" aria-label="Vela siguiente">→</button>
+          </div>
+          <label class="seek" for="cursor"><span>Vela <output id="position"></output></span><input id="cursor" type="range" min="0" value="0"></label>
+        </div>
+        <div class="foot"><span id="progress"></span><output id="timing">Dibujo p95 · —</output></div>
+      </section>
+      <aside class="details" aria-label="Vela y eventos">
+        <h2>Vela seleccionada</h2>
+        <p id="selected-time" class="selected-time"></p>
+        <dl id="ohlc" class="ohlc"></dl>
+        <div class="events-header"><h2>Eventos</h2><span id="event-count"></span></div>
+        <ul id="events" class="events" aria-live="polite"></ul>
+        <label class="jump" for="jump-event">Ir a un evento reciente
+          <select id="jump-event"><option value="">Elige un evento visible</option></select>
+        </label>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
